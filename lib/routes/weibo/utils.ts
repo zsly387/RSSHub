@@ -428,7 +428,7 @@ const weiboUtils = {
                     itemDesc += `<a href="https://weibo.com/${comment.user.id}" target="_blank">${comment.user.screen_name}</a>: ${comment.text}`;
                     // 带有图片的评论直接输出图片
                     if ('pic' in comment) {
-                        itemDesc += `<br><img src="${comment.pic.url}">`;
+                        itemDesc += `<br><img src="${comment.pic.url.replace('orj360', 'mw2000')}">`;
                     }
                     if (comment.comments) {
                         itemDesc += '<blockquote style="border-left:0.2em solid #80808080; margin-left: 0.3em; padding-left: 0.5em; margin-bottom: 0.5em; margin-top: 0.25em">';
