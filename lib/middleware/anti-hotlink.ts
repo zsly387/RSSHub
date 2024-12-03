@@ -56,15 +56,28 @@ const replaceUrl = (template?: string, url?: string) => {
     return url;
 };
 
+const replaceSrcSet = (srcset: string, template: string) => srcset
+        .split(',')
+        .map((src) => {
+            const [url, size] = src.trim().split(/\s+/);
+            const newUrl = replaceUrl(template, url);
+            return size ? `${newUrl} ${size}` : newUrl;
+        })
+        .join(', ');
+
 const replaceUrls = ($: CheerioAPI, selector: string, template: string, attribute = 'src') => {
     $(selector).each(function () {
         const oldSrc = $(this).attr(attribute);
         if (oldSrc) {
             const url = parseUrl(oldSrc);
             if (url && url.protocol !== 'data:') {
-                // Cheerio will do the right thing to prohibit XSS.
                 $(this).attr(attribute, interpolate(template, url));
             }
+        }
+
+        const srcset = $(this).attr('srcset');
+        if (srcset) {
+            $(this).attr('srcset', replaceSrcSet(srcset, template));
         }
     });
 };
