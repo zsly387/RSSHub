@@ -90,6 +90,8 @@ export type Data = {
     ttl?: number;
 };
 
+type Language = 'en' | 'de' | 'ja' | 'zh-CN' | 'zh-TW' | 'zh-HK' | 'pt' | 'fr' | 'ar-DZ' | 'ar-SA' | 'ar-MA' | 'ar-IQ' | 'ar-KW' | 'ar-TN' | 'fi' | 'it' | 'ru' | 'es' | 'ko' | 'tr' | 'ne' | 'other';
+
 // namespace
 interface NamespaceItem {
     /**
@@ -112,6 +114,11 @@ interface NamespaceItem {
      * Hints and additional explanations for users using this namespace, it will be inserted into the documentation
      */
     description?: string;
+
+    /**
+     * Main Language of the namespace
+     */
+    lang?: Language;
 }
 
 interface Namespace extends NamespaceItem {
@@ -285,4 +292,10 @@ export type RadarItem = {
               /** @deprecated Temporary removed  @see https://github.com/DIYgod/RSSHub-Radar/commit/e6079ea1a8c96e89b1b2c2aa6d13c7967788ca3b */
               document: Document
           ) => string);
+};
+
+export type RadarDomain = {
+    _name: string;
+} & {
+    [subdomain: string]: RadarItem[];
 };
